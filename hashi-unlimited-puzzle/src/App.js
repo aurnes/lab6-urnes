@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import base, {auth} from './base';
 import SignIn from './SignIn'
+import Puzzle from './Puzzle'
 
 class App extends Component {
   constructor() {
@@ -59,6 +60,7 @@ signout = () => {
           <div>
           <h1>Hashi Unlimited Puzzle</h1>
           <p>Hello!</p>
+          <Puzzle />
           <button onClick={this.signout}>Sign Out</button>
           </div>
           : <SignIn />
