@@ -20,6 +20,7 @@ router.get('/', function(req, res, next) {
   })
   connection.end
     //res.render('index', { title: 'Express' });
+	//res.json(req.body);
 });
 
 
