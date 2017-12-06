@@ -31,3 +31,12 @@ img {
   vertical-align:top;
   width: 100px;
 }
+
+#puzzle {
+  text-align: center;
+}
+
+.cell {
+  display: inline-block;
+  box-sizing: border-box;
+}

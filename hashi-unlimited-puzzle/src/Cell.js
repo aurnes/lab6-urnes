@@ -25,6 +25,12 @@ import node8 from './icons/node8.png'
 import node8_h from './icons/node8_h.png'
 
 class Cell extends Component {
+    constructor(){
+        super()
+        this.state = {
+            isClicked: false
+        }
+    }
     componentWillMount(){
         console.log(this.props.src)
     }
@@ -33,6 +39,12 @@ class Cell extends Component {
         //uhhhhhhhhh
     }
 
+    highlight(){
+        if(this.props.src.includes("node")){
+            this.setState({isClicked: !this.state.isClicked})
+        }
+        this.props.onClick()
+    }
     render(){
         var allImages = {}
         allImages['bridge'] = bridge
@@ -59,14 +71,14 @@ class Cell extends Component {
         allImages['node7'] = node7
         allImages['node8_h'] = node8_h
         allImages['node8'] = node8
+        
         return(
-            <div>
-                <img src={allImages[this.props.src]} />
-                 {this.props.column_data === "3"
+            <div className="cell">
+                {this.state.isClicked
                     ?
-                    <br/>
+                    <img src={allImages[`${this.props.src}_h`]} onClick = {this.highlight.bind(this)}/>
                     :
-                    ""
+                    <img src={allImages[`${this.props.src}`]} onClick = {this.highlight.bind(this)}/>
                 }
             </div>
         )

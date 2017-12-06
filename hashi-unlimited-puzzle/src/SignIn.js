@@ -11,7 +11,7 @@ const SignIn = () => {
             <button className="SignIn"
                 onClick={authenticateGoogle}
             >
-            <a><i class="fa fa-google" aria-hidden="true"></i>Sign In With Google</a>
+            <a><i className="fa fa-google" aria-hidden="true"></i>Sign In With Google</a>
             </button>
         </div>
     )
