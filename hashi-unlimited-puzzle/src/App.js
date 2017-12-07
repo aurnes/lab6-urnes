@@ -14,7 +14,8 @@ class App extends Component {
       elapsed: 0,
       start: Date.now(),
       finished: false,
-      totalTime: "00:00:00"
+      totalTime: "00:00:00",
+      hi: null
     }
 
 
@@ -78,7 +79,8 @@ finishPuzzle(){
       "uid": this.state.uid,
       "time": time
     })
-  });
+  }).then((response) => response.json()).then((res) => this.setState({ hi: res.hi}));
+
   this.setState({finished: true})
 }
 
@@ -113,7 +115,6 @@ getTotalTime(){
           ?
           <div>
           <h1>Hashi Unlimited Puzzle</h1>
-          <p>Hello!</p>
           {this.isFinished()
             ?
             <p>{this.state.totalTime}</p>
@@ -121,6 +122,7 @@ getTotalTime(){
             <p>{this.pad(hours)}:{this.pad(minutes)}:{this.pad(seconds)}</p>
 
           }
+          <p>{this.state.hi}</p>
 
 
           <Puzzle />
