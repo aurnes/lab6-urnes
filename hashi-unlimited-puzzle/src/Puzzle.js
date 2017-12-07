@@ -13,6 +13,7 @@ class Puzzle extends Component {
       }
 
     componentWillMount(){
+        var n = 4;
         var array = [["bridge0","bridge0","bridge0","bridge0"], ["bridge0","bridge0","bridge0","bridge0"], ["bridge0","bridge0","bridge0","bridge0"], ["bridge0","bridge0","bridge0","bridge0"]]
         var nodeCount = 0;
         var max = 3
@@ -205,6 +206,50 @@ class Puzzle extends Component {
 
         console.log(array)
 
+        //fill in numbers
+        for(var k = 0; k<=max; k++){
+            var bcount = 0;
+            console.log(nodes[k])
+            var i = parseFloat(nodes[k][0])
+            var j = parseFloat(nodes[k][1])
+            console.log(array[i][j])
+            if(j+1 < n){
+                if(array[i][j+1] === "bridge1"){
+                    bcount++;
+                }
+                if(array[i][j+1] === "bridge2"){
+                    bcount+=2;
+                }
+            }
+            if(j-1 >= 0){
+                if(array[i][j-1] === "bridge1"){
+                    bcount++;
+                }
+                if(array[i][j-1] === "bridge2"){
+                    bcount+=2;
+                }
+            }
+            if(i+1 < n){
+                if(array[i+1][j] === "bridge1_v"){
+                    bcount++;
+                }
+                if(array[i+1][j] === "bridge2_v"){
+                    bcount+=2;
+                }
+            }
+            if(i-1 >= 0){
+                console.log(array[i-1][j])
+                if(array[i-1][j] === "bridge1_v"){
+                    bcount++;
+                }
+                if(array[i-1][j] === "bridge2_v"){
+                    bcount+=2;
+                }
+            }
+            if(bcount>0){
+                array[i][j] = "node" + bcount
+            }
+        }
         this.setState({currSource: array})
     }
     getRandomInt(min, max) {
