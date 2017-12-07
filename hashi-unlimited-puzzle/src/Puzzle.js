@@ -15,27 +15,30 @@ class Puzzle extends Component {
     componentWillMount(){
         var array = [["bridge0","bridge0","bridge0","bridge0"], ["bridge0","bridge0","bridge0","bridge0"], ["bridge0","bridge0","bridge0","bridge0"], ["bridge0","bridge0","bridge0","bridge0"]]
         var nodeCount = 0;
-        var max = 8
+        var max = 3
         var i = parseFloat(this.getRandomInt(0, 4))
         //var j = 0;
         var j = parseFloat(this.getRandomInt(0, 4))
         var index = i + "" + j
         var nodes = [index]
-        console.log(nodes[0])
-        while(nodeCount<max){
 
+        while(nodeCount<max){
             array[i][j] = "node"
            var direction = this.getRandomInt(0, 4)
            //var direction = 3
             if(direction == 0){
                 console.log("UP")
+                var cont = false;
                 i--;
                 while(i>=0 && array[i][j] != "node"){
                     if(i==0){
                         if(array[i+1][j]!="node"){
                             array[i][j] = "node";
-                            nodeCount++;
-                            nodes[nodeCount] = [`${i}`+`${j}`]
+                            var index = i + "" + j
+                            if(!nodes.includes(index)){
+                                nodeCount++;
+                                nodes[nodeCount] = index
+                            }
                         }
                         break;
                     }
@@ -47,29 +50,40 @@ class Puzzle extends Component {
                     }
                     if(array[i][j].includes("bridge") && !array[i][j].includes("_v") && !array[i][j].includes("bridge0")){
                         array[i][j] = "node"
-                        nodeCount++;
-                        nodes[nodeCount] = [`${i}`+`${j}`]
+                        var index = i + "" + j
+                        if(!nodes.includes(index)){
+                            nodeCount++;
+                            nodes[nodeCount] = index
+                        }
                         break;
                     }
                     i--;
-                    if(parseFloat(this.getRandomInt(0, 2)) == 1){
+                    if(cont && parseFloat(this.getRandomInt(0, 2)) == 1){
                         console.log(array)
                         array[i][j] = "node"
-                        nodeCount++;
-                        nodes[nodeCount] = [`${i}`+`${j}`]
+                        var index = i + "" + j
+                        if(!nodes.includes(index)){
+                            nodeCount++;
+                            nodes[nodeCount] = index
+                        }
                         break;
                     }
+                    cont = true
                 }
             }
             if(direction == 1){
                 console.log("DOWN")
                 i++;
+                var cont = false;
                 while(i<=3 && array[i][j] != "node"){
                     if(i==3){
                         if(array[i-1][j]!="node"){
                             array[i][j] = "node";
-                            nodeCount++;
-                            nodes[nodeCount] = [`${i}`+`${j}`]
+                            var index = i + "" + j
+                            if(!nodes.includes(index)){
+                                nodeCount++;
+                                nodes[nodeCount] = index
+                            }
                         }
                         break;
                     }
@@ -81,28 +95,39 @@ class Puzzle extends Component {
                     }
                     if(array[i][j].includes("bridge") && !array[i][j].includes("_v") && !array[i][j].includes("bridge0")){
                         array[i][j] = "node"
-                        nodeCount++;
-                        nodes[nodeCount] = [`${i}`+`${j}`]
+                        var index = i + "" + j
+                        if(!nodes.includes(index)){
+                            nodeCount++;
+                            nodes[nodeCount] = index
+                        }
                         break;
                     }
                     i++;
-                    if(parseFloat(this.getRandomInt(0, 2)) == 1){
+                    if(cont && parseFloat(this.getRandomInt(0, 2)) == 1){
                         array[i][j] = "node"
-                        nodeCount++;
-                        nodes[nodeCount] = [`${i}`+`${j}`]
+                        var index = i + "" + j
+                        if(!nodes.includes(index)){
+                            nodeCount++;
+                            nodes[nodeCount] = index
+                        }
                         break;
                     }
+                    cont = true;
                 }
             }
             if(direction == 2){
                 console.log("LEFT")
+                var cont = false
                 j--;
                 while(j>=0 && array[i][j] != "node"){
                     if(j==0){
                         if(array[i][j+1]!="node"){
                             array[i][j] = "node";
-                            nodeCount++;
-                            nodes[nodeCount] = [`${i}`+`${j}`]
+                            var index = i + "" + j
+                            if(!nodes.includes(index)){
+                                nodeCount++;
+                                nodes[nodeCount] = index
+                            }
                         }
                         break;
                     }
@@ -115,27 +140,32 @@ class Puzzle extends Component {
                     if(array[i][j].includes("bridge") && array[i][j].includes("_v") && !array[i][j].includes("bridge0")){
                         array[i][j] = "node"
                         nodeCount++;
-                        nodes[nodeCount] = [`${i}`+`${j}`]
+                        nodes[nodeCount] = i + "" + j
                         break;
                     }
                     j--;
-                    if(parseFloat(this.getRandomInt(0, 2)) == 1){
+                    if(cont && parseFloat(this.getRandomInt(0, 2)) == 1){
                         array[i][j] = "node"
-                        nodeCount++;
-                        nodes[nodeCount] = [`${i}`+`${j}`]
+                        var index = i + "" + j
+                        if(!nodes.includes(index)){
+                            nodeCount++;
+                            nodes[nodeCount] = index
+                        }
                         break;
                     }
+                    cont = true
                 }
             }
             if(direction == 3){
                 console.log("RIGHT")
+                var cont = false
                 j++;
                 while(j<=3 && array[i][j] != "node"){
                     if(j==3){
                         if(array[i][j-1]!="node"){
                             array[i][j] = "node"
                             nodeCount++;
-                            nodes[nodeCount] = [`${i}`+`${j}`]
+                            nodes[nodeCount] = i + "" + j
                         }
                         break;
                     }
@@ -147,21 +177,30 @@ class Puzzle extends Component {
                     }
                     if(array[i][j].includes("bridge") && array[i][j].includes("_v") && !array[i][j].includes("bridge0")){
                         array[i][j] = "node"
-                        nodeCount++;
-                        nodes[nodeCount] = [`${i}`+`${j}`]
+                        var index = i + "" + j
+                        if(!nodes.includes(index)){
+                            nodeCount++;
+                            nodes[nodeCount] = index
+                        }
                         break;
                     }
                     j++;
-                    if(parseFloat(this.getRandomInt(0, 2)) == 1){
+                    if(cont && parseFloat(this.getRandomInt(0, 2)) == 1){
                         array[i][j] = "node"
-                        nodeCount++;
-                        nodes[nodeCount] = [`${i}`+`${j}`]
+                        var index = i + "" + j
+                        if(!nodes.includes(index)){
+                            nodeCount++;
+                            nodes[nodeCount] = index
+                        }
                         break;
                     }
+                    cont = true
                 }
             }
             i = nodes[parseFloat(this.getRandomInt(0, nodeCount))][0]
             j = nodes[parseFloat(this.getRandomInt(0, nodeCount))][1]
+            console.log("Current islands: " + nodes)
+            console.log("Next starting from: " + i + "," + j)
         }
 
         console.log(array)
