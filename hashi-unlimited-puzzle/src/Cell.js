@@ -25,33 +25,17 @@ import node8 from './icons/node8.png'
 import node8_h from './icons/node8_h.png'
 
 class Cell extends Component {
-    constructor(){
-        super()
-        this.state = {
-            isClicked: false
-        }
-    }
-    componentWillMount(){
-        console.log(this.props.src)
-    }
-
-    componentWillReceiveNewProps(){
-        //uhhhhhhhhh
-    }
-
     highlight(){
-        if(this.props.src.includes("node")){
-            this.setState({isClicked: !this.state.isClicked})
-        }
-        this.props.onClick()
+        this.props.onClick(this.props.row_data, this.props.column_data)
     }
     render(){
         var allImages = {}
         allImages['bridge'] = bridge
         allImages['node'] = node
-        allImages['bridge_v'] = bridge_v
+        allImages['bridge1_v'] = bridge_v
         allImages['bridge2_v'] = bridge2_v
         allImages['bridge0'] = bridge0
+        allImages['bridge0_v'] = bridge0
         allImages['bridge1'] = bridge1
         allImages['bridge2'] = bridge2
         allImages['node_h'] = node_h
@@ -71,10 +55,13 @@ class Cell extends Component {
         allImages['node7'] = node7
         allImages['node8_h'] = node8_h
         allImages['node8'] = node8
+
+        var isClicked= this.props.currHL === this.props.row_data+this.props.column_data
+        //console.log(isClicked)
         
         return(
             <div className="cell">
-                {this.state.isClicked
+                {isClicked
                     ?
                     <img src={allImages[`${this.props.src}_h`]} onClick = {this.highlight.bind(this)}/>
                     :
