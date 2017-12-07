@@ -13,7 +13,8 @@ class App extends Component {
       uid: null,
       elapsed: 0,
       start: Date.now(),
-      finished: false
+      finished: false,
+      totalTime: "00:00:00"
     }
 
 
@@ -43,7 +44,9 @@ class App extends Component {
 }
 
   tick = () =>{
+    if(!this.isFinished()){
     this.setState({ elapsed: new Date() - this.state.start });
+  }
   }
 
 authHandler = (userData) => {
@@ -73,11 +76,25 @@ pad = (d) => {
   return (d < 10) ? '0' + d.toString() : d.toString();
 }
 finishPuzzle(){
-  this.setState({done: true})
+  this.getTotalTime();
+  this.setState({finished: true})
 }
 
 isFinished(){
   return this.state.finished
+}
+
+getTotalTime(){
+  var elapsed = Math.round(this.state.elapsed / 100);
+  var total = Math.trunc(elapsed/10);
+  var hours = Math.trunc(total/3600);
+  var minutes = Math.trunc((total-hours*3600)/60);
+  var seconds = (total - (minutes)*60);
+  var stringver = "" + this.pad(hours) + "\:";
+  stringver = stringver + this.pad(minutes) + "\:";
+  stringver = stringver + this.pad(seconds);
+  this.setState({totalTime: stringver})
+  return [hours, minutes, seconds];
 }
 
   render() {
@@ -96,14 +113,13 @@ isFinished(){
           <p>Hello!</p>
           {this.isFinished()
             ?
-            ""
-            //add desired value
+            <p>{this.state.totalTime}</p>
             :
             <p>{this.pad(hours)}:{this.pad(minutes)}:{this.pad(seconds)}</p>
 
           }
 
-          
+
           <Puzzle />
           <button onClick={this.finishPuzzle.bind(this)}>Done!</button>
           <button onClick={this.signout}>Sign Out</button>
