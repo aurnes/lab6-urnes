@@ -10,7 +10,9 @@ class App extends Component {
     super()
 
     this.state = {
-      uid: null
+      uid: null,
+      elapsed: 0,
+      start: Date.now()
     }
 
 
@@ -26,10 +28,12 @@ class App extends Component {
       )
   }
   signedIn = () => {
+    this.timer = setInterval(this.tick, 1000);
     return this.state.uid;
   }
 
   signOut = () => {
+    clearInterval(this.timer);
     auth
         .signOut()
         .then(() => {
@@ -37,11 +41,22 @@ class App extends Component {
         })
 }
 
+  tick = () =>{
+    this.setState({ elapsed: new Date() - this.state.start });
+  }
+
 authHandler = (userData) => {
     this.setState(
                 {uid: userData.uid}
                  )
-    
+    fetch('/users', {
+      method: 'post',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        "uid": this.state.uid
+      })
+    });
+
 }
 
 signout = () => {
@@ -52,7 +67,18 @@ signout = () => {
             this.setState({ uid: null})
         })
 }
+
+pad = (d) => {
+  return (d < 10) ? '0' + d.toString() : d.toString();
+}
+
   render() {
+    var elapsed = Math.round(this.state.elapsed / 100);
+    var total = Math.trunc(elapsed/10);
+    var hours = Math.trunc(total/3600);
+    var minutes = Math.trunc((total-hours*3600)/60);
+    var seconds = (total - (minutes)*60);
+
     return (
       <div className="App">
         {this.signedIn()
@@ -60,6 +86,8 @@ signout = () => {
           <div>
           <h1>Hashi Unlimited Puzzle</h1>
           <p>Hello!</p>
+          {this.pad(hours)}:{this.pad(minutes)}:{this.pad(seconds)}
+          
           <Puzzle />
           <button onClick={this.signout}>Sign Out</button>
           </div>
