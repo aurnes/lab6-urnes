@@ -3,7 +3,9 @@ var router = express.Router();
 
 /* GET home page. */
 router.post('/', function(req, res, next) {
-	console.log(req.body.uid);
+  console.log(req.body.uid);
+  console.log(req.body.time);
+
   var mysql = require('mysql')
   var connection = mysql.createConnection({
     port  : '3306',
@@ -13,15 +15,20 @@ router.post('/', function(req, res, next) {
     database  : 'users'
   });
 
+  var que = "INSERT INTO scores (uid, best, date_best, solved) VALUES ('" + req.body.uid + "', '" + req.body.time + "', '2017-12-07', 1) ON DUPLICATE KEY UPDATE solved=solved+1, date_best = IF(VALUES(best) < best, VALUES(date_best), date_best), best = IF(VALUES(best) < best, VALUES(best), best)";
+
   connection.connect()
-  connection.query('SELECT * FROM scores', function (err, rows, fields){
+  connection.query(que, function (err, rows, fields){
     if (err) throw err
-    console.log(rows[0])
-    res.json(rows[0]);
+
+  })
+
+  connection.query("SELECT * FROM scores", function (err, rows, fields){
+    if (err) throw err
+    console.log(rows);
+
   })
   connection.end
-    //res.render('index', { title: 'Express' });
-	//res.json(req.body);
 
 });
 
