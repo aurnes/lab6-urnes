@@ -53,13 +53,7 @@ authHandler = (userData) => {
     this.setState(
                 {uid: userData.uid}
                  )
-    fetch('/users', {
-      method: 'post',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({
-        "uid": this.state.uid
-      })
-    });
+
 
 }
 
@@ -76,7 +70,15 @@ pad = (d) => {
   return (d < 10) ? '0' + d.toString() : d.toString();
 }
 finishPuzzle(){
-  this.getTotalTime();
+  var time = this.getTotalTime();
+  fetch('/users', {
+    method: 'post',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({
+      "uid": this.state.uid,
+      "time": time
+    })
+  });
   this.setState({finished: true})
 }
 
@@ -94,7 +96,8 @@ getTotalTime(){
   stringver = stringver + this.pad(minutes) + "\:";
   stringver = stringver + this.pad(seconds);
   this.setState({totalTime: stringver})
-  return [hours, minutes, seconds];
+
+  return stringver;
 }
 
   render() {
