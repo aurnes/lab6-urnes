@@ -12,7 +12,8 @@ class App extends Component {
     this.state = {
       uid: null,
       elapsed: 0,
-      start: Date.now()
+      start: Date.now(),
+      finished: false
     }
 
 
@@ -71,6 +72,13 @@ signout = () => {
 pad = (d) => {
   return (d < 10) ? '0' + d.toString() : d.toString();
 }
+finishPuzzle(){
+  this.setState({done: true})
+}
+
+isFinished(){
+  return this.state.finished
+}
 
   render() {
     var elapsed = Math.round(this.state.elapsed / 100);
@@ -86,9 +94,18 @@ pad = (d) => {
           <div>
           <h1>Hashi Unlimited Puzzle</h1>
           <p>Hello!</p>
-          {this.pad(hours)}:{this.pad(minutes)}:{this.pad(seconds)}
+          {this.isFinished()
+            ?
+            ""
+            //add desired value
+            :
+            <p>{this.pad(hours)}:{this.pad(minutes)}:{this.pad(seconds)}</p>
+
+          }
+
           
           <Puzzle />
+          <button onClick={this.finishPuzzle.bind(this)}>Done!</button>
           <button onClick={this.signout}>Sign Out</button>
           </div>
           : <SignIn />
