@@ -31,7 +31,7 @@ class App extends Component {
       )
   }
   signedIn = () => {
-    this.timer = setInterval(this.tick, 1000);
+    this.timer = setInterval(this.tick, 50);
     return this.state.uid;
   }
 
@@ -125,8 +125,7 @@ getTotalTime(){
           <p>{this.state.hi}</p>
 
 
-          <Puzzle />
-          <button onClick={this.finishPuzzle.bind(this)}>Done!</button>
+          <Puzzle finishPuzzle={this.finishPuzzle.bind(this)}/>
           <button onClick={this.signout}>Sign Out</button>
           </div>
           : <SignIn />
