@@ -280,6 +280,9 @@ class Puzzle extends Component {
         console.log(array)
         this.setState({currSource: array})
         console.log(this.state.currSource)
+        if(array[row][column].includes("bridge")){
+            return
+        }
         if(this.state.currHL != null){
             var i = this.state.currHL[0];
             var j = this.state.currHL[1]
