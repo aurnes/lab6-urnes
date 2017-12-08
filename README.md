@@ -7,7 +7,7 @@ Play the Japanese puzzle game *Hashiwokakero* online, randomly generated for end
 Try to beat your high score!
 
 
-Frontend: ReactJS, Firebase (authentication), surge.sh (hosting)
+Frontend: ReactJS, Firebase (authentication), surge.sh and AWS (hosting)
 
 Backend: Express.js, Amazon Web Services Elastic Compute Cloud (AWS EC2)
 
@@ -15,6 +15,6 @@ Database: MySQL, Amazon Web Services Relational Database Server (AWS RDS)
 
 Puzzle generator algorithm referenced from "Hashiwokakero" by T. Morsink (2009).
 
-**video: https://youtu.be/GXB00ALjxIU**
+**video: https://www.youtube.com/watch?v=K_7qPo0YEDM**
 
-**live site: http://hashi-unlimited-puzzle.surge.sh/**
+**live site: http://hashi-unlimited-puzzle.surge.sh/ OR http://18.217.79.97:3005/**
