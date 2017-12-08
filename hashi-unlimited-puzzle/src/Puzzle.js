@@ -13,10 +13,10 @@ class Puzzle extends Component {
       }
 
     componentWillMount(){
-        var n = 5;
-        var array = [["bridge0","bridge0","bridge0","bridge0", "bridge0"], ["bridge0","bridge0","bridge0","bridge0", "bridge0"],["bridge0","bridge0","bridge0","bridge0", "bridge0"],["bridge0","bridge0","bridge0","bridge0", "bridge0"],["bridge0","bridge0","bridge0","bridge0", "bridge0"]]
+        var n = 6;
+        var array = [["bridge0","bridge0","bridge0","bridge0", "bridge0", "bridge0"], ["bridge0","bridge0","bridge0","bridge0", "bridge0", "bridge0"], ["bridge0","bridge0","bridge0","bridge0", "bridge0", "bridge0"], ["bridge0","bridge0","bridge0","bridge0", "bridge0", "bridge0"], ["bridge0","bridge0","bridge0","bridge0", "bridge0", "bridge0"], ["bridge0","bridge0","bridge0","bridge0", "bridge0", "bridge0"]]
         var nodeCount = 0;
-        var max = 6
+        var max = 11
         var i = parseFloat(this.getRandomInt(0, n))
         //var j = 0;
         var j = parseFloat(this.getRandomInt(0, n))
@@ -272,14 +272,15 @@ class Puzzle extends Component {
                 }else{
                     if(array[i][j].includes("_v")){
                         //vertical, check vertical neighbors
-                        
-                        if(i!= 0 && array[i-1][j] === "bridge0"){
-                            array[i][j] = "bridge0"
-                            console.log("cleanup")
-                        }
-                        if(i!= n-1 && array[i+1][j] === "bridge0"){
-                            array[i][j] = "bridge0"
-                            console.log("cleanup")
+                        if(i!=0 && i!=n-1){
+                            if(array[i-1][j].includes("bridge") && !array[i-1][j].includes("_v")){
+                                array[i][j] = "bridge0"
+                                console.log("cleanup")
+                            }
+                            if(array[i+1][j].includes("bridge") && !array[i+1][j].includes("_v")){
+                                array[i][j] = "bridge0"
+                                console.log("cleanup")
+                            }
                         }
                         if(i==0 || i==n-1){
                             array[i][j] = "bridge0"
@@ -288,14 +289,15 @@ class Puzzle extends Component {
                     }else{
                         if(array[i][j].includes("bridge")){
                             //horizontal, check horizontal neighbors
-                            
-                            if(j!=n-1 && array[i][j+1] === "bridge0"){
-                                array[i][j] = "bridge0"
-                                console.log("cleanup")
-                            }
-                            if(j!= 0 && array[i][j-1] === "bridge0"){
-                                array[i][j] = "bridge0"
-                                console.log("cleanup")
+                            if(j!=0 && j!= n-1){
+                                if(array[i][j+1] === "bridge0" || array[i][j+1].includes("_v")){
+                                    array[i][j] = "bridge0"
+                                    console.log("cleanup")
+                                }
+                                if(array[i][j-1] === "bridge0" || array[i][j-1].includes("_v")){
+                                    array[i][j] = "bridge0"
+                                    console.log("cleanup")
+                                }
                             }
                             if(j==0 || j==n-1){
                                 array[i][j] = "bridge0"
@@ -494,30 +496,42 @@ class Puzzle extends Component {
                 <Cell src={this.state.currSource[0][2]} onClick={this.handleClick.bind(this)} row_data="0" column_data="2" currHL={this.state.currHL}/>
                 <Cell src={this.state.currSource[0][3]} onClick={this.handleClick.bind(this)} row_data="0" column_data="3" currHL={this.state.currHL}/>
                 <Cell src={this.state.currSource[0][4]} onClick={this.handleClick.bind(this)} row_data="0" column_data="4" currHL={this.state.currHL}/>
+                <Cell src={this.state.currSource[0][5]} onClick={this.handleClick.bind(this)} row_data="0" column_data="5" currHL={this.state.currHL}/>
                 <br clear="all" />
                 <Cell src={this.state.currSource[1][0]} onClick={this.handleClick.bind(this)} row_data="1" column_data="0" currHL={this.state.currHL}/>
                 <Cell src={this.state.currSource[1][1]} onClick={this.handleClick.bind(this)} row_data="1" column_data="1" currHL={this.state.currHL}/>
                 <Cell src={this.state.currSource[1][2]} onClick={this.handleClick.bind(this)} row_data="1" column_data="2" currHL={this.state.currHL}/>
                 <Cell src={this.state.currSource[1][3]} onClick={this.handleClick.bind(this)} row_data="1" column_data="3" currHL={this.state.currHL}/>
                 <Cell src={this.state.currSource[1][4]} onClick={this.handleClick.bind(this)} row_data="1" column_data="4" currHL={this.state.currHL}/>
+                <Cell src={this.state.currSource[1][5]} onClick={this.handleClick.bind(this)} row_data="1" column_data="5" currHL={this.state.currHL}/>
                 <br clear="all" />
                 <Cell src={this.state.currSource[2][0]} onClick={this.handleClick.bind(this)} row_data="2" column_data="0" currHL={this.state.currHL}/>
                 <Cell src={this.state.currSource[2][1]} onClick={this.handleClick.bind(this)} row_data="2" column_data="1" currHL={this.state.currHL}/>
                 <Cell src={this.state.currSource[2][2]} onClick={this.handleClick.bind(this)} row_data="2" column_data="2" currHL={this.state.currHL}/>
                 <Cell src={this.state.currSource[2][3]} onClick={this.handleClick.bind(this)} row_data="2" column_data="3" currHL={this.state.currHL}/>
                 <Cell src={this.state.currSource[2][4]} onClick={this.handleClick.bind(this)} row_data="2" column_data="4" currHL={this.state.currHL}/>
+                <Cell src={this.state.currSource[2][5]} onClick={this.handleClick.bind(this)} row_data="2" column_data="5" currHL={this.state.currHL}/>
                 <br clear="all" />
                 <Cell src={this.state.currSource[3][0]} onClick={this.handleClick.bind(this)} row_data="3" column_data="0" currHL={this.state.currHL}/>
                 <Cell src={this.state.currSource[3][1]} onClick={this.handleClick.bind(this)} row_data="3" column_data="1" currHL={this.state.currHL}/>
                 <Cell src={this.state.currSource[3][2]} onClick={this.handleClick.bind(this)} row_data="3" column_data="2" currHL={this.state.currHL}/>
                 <Cell src={this.state.currSource[3][3]} onClick={this.handleClick.bind(this)} row_data="3" column_data="3" currHL={this.state.currHL}/>
                 <Cell src={this.state.currSource[3][4]} onClick={this.handleClick.bind(this)} row_data="3" column_data="4" currHL={this.state.currHL}/>
+                <Cell src={this.state.currSource[3][5]} onClick={this.handleClick.bind(this)} row_data="3" column_data="5" currHL={this.state.currHL}/>
                 <br clear="all" />
                 <Cell src={this.state.currSource[4][0]} onClick={this.handleClick.bind(this)} row_data="4" column_data="0" currHL={this.state.currHL}/>
                 <Cell src={this.state.currSource[4][1]} onClick={this.handleClick.bind(this)} row_data="4" column_data="1" currHL={this.state.currHL}/>
                 <Cell src={this.state.currSource[4][2]} onClick={this.handleClick.bind(this)} row_data="4" column_data="2" currHL={this.state.currHL}/>
                 <Cell src={this.state.currSource[4][3]} onClick={this.handleClick.bind(this)} row_data="4" column_data="3" currHL={this.state.currHL}/>
                 <Cell src={this.state.currSource[4][4]} onClick={this.handleClick.bind(this)} row_data="4" column_data="4" currHL={this.state.currHL}/>
+                <Cell src={this.state.currSource[4][5]} onClick={this.handleClick.bind(this)} row_data="4" column_data="5" currHL={this.state.currHL}/>
+                <br clear="all" />
+                <Cell src={this.state.currSource[5][0]} onClick={this.handleClick.bind(this)} row_data="5" column_data="0" currHL={this.state.currHL}/>
+                <Cell src={this.state.currSource[5][1]} onClick={this.handleClick.bind(this)} row_data="5" column_data="1" currHL={this.state.currHL}/>
+                <Cell src={this.state.currSource[5][2]} onClick={this.handleClick.bind(this)} row_data="5" column_data="2" currHL={this.state.currHL}/>
+                <Cell src={this.state.currSource[5][3]} onClick={this.handleClick.bind(this)} row_data="5" column_data="3" currHL={this.state.currHL}/>
+                <Cell src={this.state.currSource[5][4]} onClick={this.handleClick.bind(this)} row_data="5" column_data="4" currHL={this.state.currHL}/>
+                <Cell src={this.state.currSource[5][5]} onClick={this.handleClick.bind(this)} row_data="5" column_data="5" currHL={this.state.currHL}/>
                 
             </div>
             <button onClick={this.doneButton.bind(this)}>Done!</button>
