@@ -155,7 +155,15 @@ class Puzzle extends Component {
                             }
                         }
                     }
-                    if(cont && parseFloat(this.getRandomInt(0, 2)) == 1){
+                    if(array[i][j] === "bridge1"){
+                        array[i][j] = "bridge2"
+                        cont = true
+                    }
+                    if(array[i][j] === "bridge0"){
+                        array[i][j] = "bridge1"
+                        cont = true
+                    }
+                    if(array[i][j].includes("bridge") && array[i][j].includes("_v") && !array[i][j].includes("bridge0")){
                         if(this.noNeighbors(array, i, j, n)){
                             array[i][j] = "node";
                             var index = i + "" + j
@@ -166,15 +174,7 @@ class Puzzle extends Component {
                             }
                         }
                     }
-                    if(array[i][j] === "bridge1"){
-                        array[i][j] = "bridge2"
-                        cont = true
-                    }
-                    if(array[i][j] === "bridge0"){
-                        array[i][j] = "bridge1"
-                        cont = true
-                    }
-                    if(array[i][j].includes("bridge") && array[i][j].includes("_v") && !array[i][j].includes("bridge0")){
+                    if(cont && parseFloat(this.getRandomInt(0, 2)) == 1){
                         if(this.noNeighbors(array, i, j, n)){
                             array[i][j] = "node";
                             var index = i + "" + j
@@ -249,6 +249,7 @@ class Puzzle extends Component {
                 break;
             }
             console.log("Current islands: " + nodes)
+            console.log("current array: " + array)
             console.log("Next starting from: " + i + "," + j)
             iterations++;
             if(iterations>2*n*n){
@@ -266,36 +267,40 @@ class Puzzle extends Component {
         //cleanup
         for(var i = 0; i<n; i++){
             for(var j = 0; j<n; j++){
-                if(array[i][j].includes("_v")){
-                    //vertical, check verticalneighbors
-                    /*
-                    if(i!= 0 && array[i-1][j] != "node"){
-                        array[i][j] = "bridge0"
-                        console.log("cleanup")
-                    }
-                    if(i!= n-1 && array[i+1][j] != "node"){
-                        array[i][j] = "bridge0"
-                        console.log("cleanup")
-                    }*/
-                    if(i==0 || i==n-1){
-                        array[i][j] = "bridge0"
-                        console.log("cleanup")
-                    }
+                if(array[i][j] === "node"){
+
                 }else{
-                    if(array[i][j].includes("bridge")){
-                        //horizontal, check horizontal neighbors
-                        /*
-                        if(j!=n-1 && array[i][j+1] != "node"){
+                    if(array[i][j].includes("_v")){
+                        //vertical, check vertical neighbors
+                        
+                        if(i!= 0 && array[i-1][j] === "bridge0"){
                             array[i][j] = "bridge0"
                             console.log("cleanup")
                         }
-                        if(j!= 0 && array[i][j-1] != "node"){
+                        if(i!= n-1 && array[i+1][j] === "bridge0"){
                             array[i][j] = "bridge0"
                             console.log("cleanup")
-                        }*/
-                        if(j==0 || j==n-1){
+                        }
+                        if(i==0 || i==n-1){
                             array[i][j] = "bridge0"
                             console.log("cleanup")
+                        }
+                    }else{
+                        if(array[i][j].includes("bridge")){
+                            //horizontal, check horizontal neighbors
+                            
+                            if(j!=n-1 && array[i][j+1] === "bridge0"){
+                                array[i][j] = "bridge0"
+                                console.log("cleanup")
+                            }
+                            if(j!= 0 && array[i][j-1] === "bridge0"){
+                                array[i][j] = "bridge0"
+                                console.log("cleanup")
+                            }
+                            if(j==0 || j==n-1){
+                                array[i][j] = "bridge0"
+                                console.log("cleanup")
+                            }
                         }
                     }
                 }
@@ -351,14 +356,14 @@ class Puzzle extends Component {
         
 
         //remove bridges
-
+/*
         for(var i = 0; i<n; i++){
             for(var j = 0; j<n; j++){
                 if(array[i][j].includes("bridge")){
                     array[i][j] = "bridge0"
                 }
             }
-        }
+        }*/
         this.setState({currSource: array})
     }
 

@@ -71,6 +71,10 @@ getTotalTime(){
   return stringver;
 }
 
+reload(){
+  window.location.reload()
+}
+
   render() {
     var elapsed = Math.round(this.state.elapsed / 100);
     var total = Math.trunc(elapsed/10);
@@ -93,6 +97,7 @@ getTotalTime(){
 
 
           <Puzzle finishPuzzle={this.finishPuzzle.bind(this)}/>
+          <button onClick={this.reload}>New puzzle</button>
           <button onClick={this.props.signOut}>Sign out</button>
 
           </div>
