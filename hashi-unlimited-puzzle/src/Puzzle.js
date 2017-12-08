@@ -489,7 +489,8 @@ class Puzzle extends Component {
 
     render(){
         return(
-        <div>
+        <div className="aspectwrapper">
+            <div className="stretchy-wrapper"></div>
             <div id="puzzle">
                 <Cell src={this.state.currSource[0][0]} onClick={this.handleClick.bind(this)} row_data="0" column_data="0" currHL={this.state.currHL}/>
                 <Cell src={this.state.currSource[0][1]} onClick={this.handleClick.bind(this)} row_data="0" column_data="1" currHL={this.state.currHL}/>

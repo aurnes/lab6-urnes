@@ -86,22 +86,12 @@ reload(){
     return (
       <div className="App">
           <div>
-          <div style={{width: 350, position: "absolute", left: "0px", border: "1px solid black", textAlign: "left"}}>
-          <img src={banner} style={{width: 350, height: 60}} />
-          <b>How To Play</b><br/>
-          1. Click a node to highlight it.<br/>
-          2. Click another node to draw a straight line.<br/>
-          3. Repeat for a double bridge, delete bridge, etc.<br/>
-          4. Each node has a number that represents the number of bridges it should have total.<br/>
-          5. Try to connect all the nodes!<br/>
-          <a href="https://en.wikipedia.org/wiki/Hashiwokakero">More Information</a>
-          </div>
           <h1>Hashi Unlimited Puzzle</h1>
           {this.isFinished()
             ?
             <p>{this.state.totalTime}</p>
             :
-            <p>{this.pad(hours)}:{this.pad(minutes)}:{this.pad(seconds)}</p>
+            <p className="timer">{this.pad(hours)}:{this.pad(minutes)}:{this.pad(seconds)}</p>
 
           }
           <p>{this.state.hi}</p>
@@ -110,8 +100,18 @@ reload(){
           <Puzzle finishPuzzle={this.finishPuzzle.bind(this)}/>
           <button onClick={this.reload}>New puzzle</button>
           <button onClick={this.props.signOut}>Sign out</button>
-
+          <div className="inst" style={{width: 350, position: "relative", left: "10px", border: "1px solid black", textAlign: "left"}}>
+            <img src={banner} style={{width: 350, height: 60}} />
+            <b>How To Play</b><br/>
+            1. Click a node to highlight it.<br/>
+            2. Click another node to draw a straight line.<br/>
+            3. Repeat for a double bridge, delete bridge, etc.<br/>
+            4. Each node has a number that represents the number of bridges it should have total.<br/>
+            5. Try to connect all the nodes!<br/>
+            <a href="https://en.wikipedia.org/wiki/Hashiwokakero">More Information</a>
           </div>
+          </div>
+
       </div>
     );
   }

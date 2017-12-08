@@ -63,7 +63,7 @@ class Cell extends Component {
             <div className="cell">
                 {isClicked
                     ?
-                    <img src={allImages[`${this.props.src}_h`]} onClick = {this.highlight.bind(this)}/>
+                    <img class="IMAGE" src={allImages[`${this.props.src}_h`]} onClick = {this.highlight.bind(this)}/>
                     :
                     <img src={allImages[`${this.props.src}`]} onClick = {this.highlight.bind(this)}/>
                 }
