@@ -7,10 +7,12 @@ class App extends Component {
     constructor(){
         super()
         this.state = {
-            uid: null
+            uid: null,
+            bypass: false
         }
     }
     componentWillMount(){
+        require('create-react-class');
         auth.onAuthStateChanged(
             (user) => {
                 if(user){
@@ -26,8 +28,13 @@ class App extends Component {
 
 
     }
+    byPass(){
+        this.setState({bypass: true})
+    }
     signedIn = () => {
-
+            if(this.state.bypass){
+                return true
+            }
             return this.state.uid;
     }
 
@@ -46,7 +53,7 @@ class App extends Component {
                 <div>
                 {this.signedIn()
                 ? <Main signOut={this.signOut.bind(this)} uid={this.state.uid} />
-                : <SignIn />
+                : <SignIn byPass={this.byPass.bind(this)} />
                 }
                 </div>
             )
