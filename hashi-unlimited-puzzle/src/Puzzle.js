@@ -16,7 +16,7 @@ class Puzzle extends Component {
         var n = 6;
         var array = [["bridge0","bridge0","bridge0","bridge0", "bridge0", "bridge0"], ["bridge0","bridge0","bridge0","bridge0", "bridge0", "bridge0"], ["bridge0","bridge0","bridge0","bridge0", "bridge0", "bridge0"], ["bridge0","bridge0","bridge0","bridge0", "bridge0", "bridge0"], ["bridge0","bridge0","bridge0","bridge0", "bridge0", "bridge0"], ["bridge0","bridge0","bridge0","bridge0", "bridge0", "bridge0"]]
         var nodeCount = 0;
-        var max = 11
+        var max = parseFloat(this.getRandomInt(n, 2*n-.5*n+1))
         var i = parseFloat(this.getRandomInt(0, n))
         //var j = 0;
         var j = parseFloat(this.getRandomInt(0, n))
@@ -358,14 +358,14 @@ class Puzzle extends Component {
         
 
         //remove bridges
-/*
+
         for(var i = 0; i<n; i++){
             for(var j = 0; j<n; j++){
                 if(array[i][j].includes("bridge")){
                     array[i][j] = "bridge0"
                 }
             }
-        }*/
+        }
         this.setState({currSource: array})
     }
 
