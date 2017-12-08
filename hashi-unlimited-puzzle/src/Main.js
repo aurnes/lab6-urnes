@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import banner from './icons/banner.png'
 
 import Puzzle from './Puzzle'
 
@@ -14,7 +15,7 @@ class Main extends Component {
       start: Date.now(),
       finished: false,
       totalTime: "00:00:00",
-      hi: null
+      hi: "Go!"
     }
 
 
@@ -85,6 +86,16 @@ reload(){
     return (
       <div className="App">
           <div>
+          <div style={{width: 350, position: "absolute", left: "0px", border: "1px solid black", textAlign: "left"}}>
+          <img src={banner} style={{width: 350, height: 60}} />
+          <b>How To Play</b><br/>
+          1. Click a node to highlight it.<br/>
+          2. Click another node to draw a straight line.<br/>
+          3. Repeat for a double bridge, delete bridge, etc.<br/>
+          4. Each node has a number that represents the number of bridges it should have total.<br/>
+          5. Try to connect all the nodes!<br/>
+          <a href="https://en.wikipedia.org/wiki/Hashiwokakero">More Information</a>
+          </div>
           <h1>Hashi Unlimited Puzzle</h1>
           {this.isFinished()
             ?
