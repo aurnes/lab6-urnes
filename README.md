@@ -1,7 +1,4 @@
-Abigail Urnes aurnes@purdue.edu
-Naomi Urnes nurnes@purdue.edu
-
-#Hashi Unlimited Puzzle
+# Hashi Unlimited Puzzle
 Play the Japanese puzzle game hashiwokakero online, randomly generated for endless fun.
 Try to beat your high score!
 
