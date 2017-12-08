@@ -4,7 +4,7 @@ import {auth, googleProvider} from './base'
 
 class SignIn extends Component {
     authenticateGoogle () {
-        auth.signInWithPopup(googleProvider)
+        auth.signInWithRedirect(googleProvider)
     }
     render(){
         return(

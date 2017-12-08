@@ -45,7 +45,7 @@ finishPuzzle(){
   if(!this.state.bypass){
     fetch('/users', {
     method: 'post',
-    headers: {'Content-Type':'application/json'},
+    headers: {"Content-Type":"application/json"},
     body: JSON.stringify({
       "uid": this.state.uid,
       "time": time
