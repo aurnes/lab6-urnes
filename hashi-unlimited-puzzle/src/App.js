@@ -41,6 +41,7 @@ class App extends Component {
         .signOut()
         .then(() => {
             this.setState({uid: null })
+            window.location.reload()
         })
 }
 

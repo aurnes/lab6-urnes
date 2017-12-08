@@ -6,7 +6,7 @@ class Puzzle extends Component {
         super()
     
         this.state = {
-          puzzle: [[]],
+          puzzle: "",
           currSource: [["node1", "node8", "node3", "node7"], ["node4", "bridge0", "node6", "node8"], ["node2", "node1", "bridge0", "bridge0"], ["node2", "node1", "bridge0", "bridge0"]],
           currHL: null
         }
@@ -250,7 +250,8 @@ class Puzzle extends Component {
                 array[i][j] = "node" + bcount
             }
         }
-        this.setState({puzzle: array})
+        this.setState({puzzle: String(array)})
+        
 
         //remove bridges
 
@@ -344,10 +345,11 @@ class Puzzle extends Component {
     }
 
     check(){
-        if(this.state.currSource === this.state.puzzle){
+        if(String(this.state.currSource) === this.state.puzzle){
             window.alert("YAY!")
             return true
         }
+        window.alert("Not yet.")
         return false
     }
     doneButton(){
