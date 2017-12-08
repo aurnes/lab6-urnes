@@ -13,15 +13,17 @@ class Puzzle extends Component {
       }
 
     componentWillMount(){
-        var n = 4;
-        var array = [["bridge0","bridge0","bridge0","bridge0"], ["bridge0","bridge0","bridge0","bridge0"], ["bridge0","bridge0","bridge0","bridge0"], ["bridge0","bridge0","bridge0","bridge0"]]
+        var n = 5;
+        var array = [["bridge0","bridge0","bridge0","bridge0", "bridge0"], ["bridge0","bridge0","bridge0","bridge0", "bridge0"],["bridge0","bridge0","bridge0","bridge0", "bridge0"],["bridge0","bridge0","bridge0","bridge0", "bridge0"],["bridge0","bridge0","bridge0","bridge0", "bridge0"]]
         var nodeCount = 0;
-        var max = 3
-        var i = parseFloat(this.getRandomInt(0, 4))
+        var max = 6
+        var i = parseFloat(this.getRandomInt(0, n))
         //var j = 0;
-        var j = parseFloat(this.getRandomInt(0, 4))
+        var j = parseFloat(this.getRandomInt(0, n))
         var index = i + "" + j
         var nodes = [index]
+        var iterations = 0;
+        var STOP = false;
 
         while(nodeCount<max){
             array[i][j] = "node"
@@ -31,89 +33,108 @@ class Puzzle extends Component {
                 console.log("UP")
                 var cont = false;
                 i--;
+
                 while(i>=0 && array[i][j] != "node"){
                     if(i==0){
                         if(array[i+1][j]!="node"){
+                            if(this.noNeighbors(array, i, j, n) == true){
+                                array[i][j] = "node";
+                                var index = i + "" + j
+                                if(!nodes.includes(index)){
+                                    nodeCount++;
+                                    nodes[nodeCount] = index
+                                    break;
+                                }
+                            }
+                        }
+
+                    }
+                    if(cont && parseFloat(this.getRandomInt(0, 2)) == 1){
+                        console.log(array)
+                        if(this.noNeighbors(array, i, j, n)){
                             array[i][j] = "node";
                             var index = i + "" + j
                             if(!nodes.includes(index)){
                                 nodeCount++;
                                 nodes[nodeCount] = index
+                                break;
                             }
                         }
-                        break;
                     }
                     if(array[i][j] === "bridge1_v"){
                         array[i][j] = "bridge2_v"
+                          cont = true
                     }
                     if(array[i][j] === "bridge0"){
                         array[i][j] = "bridge1_v"
+                        cont = true
+                        
                     }
                     if(array[i][j].includes("bridge") && !array[i][j].includes("_v") && !array[i][j].includes("bridge0")){
-                        array[i][j] = "node"
-                        var index = i + "" + j
-                        if(!nodes.includes(index)){
-                            nodeCount++;
-                            nodes[nodeCount] = index
-                        }
-                        break;
+                            if(this.noNeighbors(array, i, j, n)){
+                                array[i][j] = "node";
+                                var index = i + "" + j
+                                if(!nodes.includes(index)){
+                                    nodeCount++;
+                                    nodes[nodeCount] = index
+                                    break;
+                                }
+                            }
                     }
                     i--;
-                    if(cont && parseFloat(this.getRandomInt(0, 2)) == 1){
-                        console.log(array)
-                        array[i][j] = "node"
-                        var index = i + "" + j
-                        if(!nodes.includes(index)){
-                            nodeCount++;
-                            nodes[nodeCount] = index
-                        }
-                        break;
-                    }
-                    cont = true
                 }
             }
             if(direction == 1){
                 console.log("DOWN")
                 i++;
                 var cont = false;
-                while(i<=3 && array[i][j] != "node"){
-                    if(i==3){
+                while(i<=n-1 && array[i][j] != "node"){
+                    if(i==n-1){
                         if(array[i-1][j]!="node"){
+                            if(this.noNeighbors(array, i, j, n)){
+                                array[i][j] = "node";
+                                var index = i + "" + j
+                                if(!nodes.includes(index)){
+                                    nodeCount++;
+                                    nodes[nodeCount] = index
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    if(cont && parseFloat(this.getRandomInt(0, 2)) == 1){
+                        if(this.noNeighbors(array, i, j, n)){
                             array[i][j] = "node";
                             var index = i + "" + j
                             if(!nodes.includes(index)){
                                 nodeCount++;
                                 nodes[nodeCount] = index
+                                break;
                             }
                         }
-                        break;
                     }
                     if(array[i][j] === "bridge1_v"){
                         array[i][j] = "bridge2_v"
+
+                    cont = true;
                     }
                     if(array[i][j] === "bridge0"){
                         array[i][j] = "bridge1_v"
+
+                    cont = true;
                     }
                     if(array[i][j].includes("bridge") && !array[i][j].includes("_v") && !array[i][j].includes("bridge0")){
-                        array[i][j] = "node"
-                        var index = i + "" + j
-                        if(!nodes.includes(index)){
-                            nodeCount++;
-                            nodes[nodeCount] = index
+                        if(this.noNeighbors(array, i, j, n)){
+                            array[i][j] = "node";
+                            var index = i + "" + j
+                            if(!nodes.includes(index)){
+                                nodeCount++;
+                                nodes[nodeCount] = index
+                                break;
+                            }
                         }
-                        break;
                     }
                     i++;
-                    if(cont && parseFloat(this.getRandomInt(0, 2)) == 1){
-                        array[i][j] = "node"
-                        var index = i + "" + j
-                        if(!nodes.includes(index)){
-                            nodeCount++;
-                            nodes[nodeCount] = index
-                        }
-                        break;
-                    }
-                    cont = true;
                 }
             }
             if(direction == 2){
@@ -123,93 +144,168 @@ class Puzzle extends Component {
                 while(j>=0 && array[i][j] != "node"){
                     if(j==0){
                         if(array[i][j+1]!="node"){
+                            if(this.noNeighbors(array, i, j, n)){
+                                array[i][j] = "node";
+                                var index = i + "" + j
+                                if(!nodes.includes(index)){
+                                    nodeCount++;
+                                    nodes[nodeCount] = index
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    if(cont && parseFloat(this.getRandomInt(0, 2)) == 1){
+                        if(this.noNeighbors(array, i, j, n)){
                             array[i][j] = "node";
                             var index = i + "" + j
                             if(!nodes.includes(index)){
                                 nodeCount++;
                                 nodes[nodeCount] = index
+                                break;
                             }
                         }
-                        break;
                     }
                     if(array[i][j] === "bridge1"){
                         array[i][j] = "bridge2"
+                        cont = true
                     }
                     if(array[i][j] === "bridge0"){
                         array[i][j] = "bridge1"
+                        cont = true
                     }
                     if(array[i][j].includes("bridge") && array[i][j].includes("_v") && !array[i][j].includes("bridge0")){
-                        array[i][j] = "node"
-                        nodeCount++;
-                        nodes[nodeCount] = i + "" + j
-                        break;
+                        if(this.noNeighbors(array, i, j, n)){
+                            array[i][j] = "node";
+                            var index = i + "" + j
+                            if(!nodes.includes(index)){
+                                nodeCount++;
+                                nodes[nodeCount] = index
+                                break;
+                            }
+                        }
                     }
                     j--;
-                    if(cont && parseFloat(this.getRandomInt(0, 2)) == 1){
-                        array[i][j] = "node"
-                        var index = i + "" + j
-                        if(!nodes.includes(index)){
-                            nodeCount++;
-                            nodes[nodeCount] = index
-                        }
-                        break;
-                    }
-                    cont = true
                 }
             }
             if(direction == 3){
                 console.log("RIGHT")
                 var cont = false
                 j++;
-                while(j<=3 && array[i][j] != "node"){
-                    if(j==3){
+                while(j<=n-1 && array[i][j] != "node"){
+                    if(j==n-1){
                         if(array[i][j-1]!="node"){
-                            array[i][j] = "node"
-                            nodeCount++;
-                            nodes[nodeCount] = i + "" + j
+                            if(this.noNeighbors(array, i, j, n)){
+                                array[i][j] = "node";
+                                var index = i + "" + j
+                                if(!nodes.includes(index)){
+                                    nodeCount++;
+                                    nodes[nodeCount] = index
+                                    break;
+                                }
+                            }
                         }
-                        break;
+                    }
+                    if(cont && parseFloat(this.getRandomInt(0, 2)) == 1){
+                        if(this.noNeighbors(array, i, j, n)){
+                            array[i][j] = "node";
+                            var index = i + "" + j
+                            if(!nodes.includes(index)){
+                                nodeCount++;
+                                nodes[nodeCount] = index
+                                break;
+                            }
+                        }
                     }
                     if(array[i][j] === "bridge1"){
                         array[i][j] = "bridge2"
+                        console.log("bridge2 at " + i + j)
+                        cont = true
                     }
                     if(array[i][j] === "bridge0"){
                         array[i][j] = "bridge1"
+                        console.log("bridge1 at " + i + j)
+                        cont = true
                     }
                     if(array[i][j].includes("bridge") && array[i][j].includes("_v") && !array[i][j].includes("bridge0")){
-                        array[i][j] = "node"
-                        var index = i + "" + j
-                        if(!nodes.includes(index)){
-                            nodeCount++;
-                            nodes[nodeCount] = index
+                        if(this.noNeighbors(array, i, j, n)){
+                            array[i][j] = "node";
+                            var index = i + "" + j
+                            if(!nodes.includes(index)){
+                                nodeCount++;
+                                nodes[nodeCount] = index
+                                break;
+                            }
                         }
-                        break;
                     }
                     j++;
-                    if(cont && parseFloat(this.getRandomInt(0, 2)) == 1){
-                        array[i][j] = "node"
-                        var index = i + "" + j
-                        if(!nodes.includes(index)){
-                            nodeCount++;
-                            nodes[nodeCount] = index
-                        }
-                        break;
-                    }
-                    cont = true
                 }
             }
-            i = nodes[parseFloat(this.getRandomInt(0, nodeCount))][0]
-            j = nodes[parseFloat(this.getRandomInt(0, nodeCount))][1]
+            var index1 = nodes[parseFloat(this.getRandomInt(0, nodeCount))];
+            i = index1[0]
+            j = index1[1]
+            console.log(nodeCount)
+            if(nodeCount == max-1){
+                break;
+            }
             console.log("Current islands: " + nodes)
             console.log("Next starting from: " + i + "," + j)
+            iterations++;
+            if(iterations>2*n*n){
+                STOP = true;
+                break;
+            }
+        }
+
+        if(STOP){
+            window.location.reload();
         }
 
         console.log(array)
 
+        //cleanup
+        for(var i = 0; i<n; i++){
+            for(var j = 0; j<n; j++){
+                if(array[i][j].includes("_v")){
+                    //vertical, check verticalneighbors
+                    /*
+                    if(i!= 0 && array[i-1][j] != "node"){
+                        array[i][j] = "bridge0"
+                        console.log("cleanup")
+                    }
+                    if(i!= n-1 && array[i+1][j] != "node"){
+                        array[i][j] = "bridge0"
+                        console.log("cleanup")
+                    }*/
+                    if(i==0 || i==n-1){
+                        array[i][j] = "bridge0"
+                        console.log("cleanup")
+                    }
+                }else{
+                    if(array[i][j].includes("bridge")){
+                        //horizontal, check horizontal neighbors
+                        /*
+                        if(j!=n-1 && array[i][j+1] != "node"){
+                            array[i][j] = "bridge0"
+                            console.log("cleanup")
+                        }
+                        if(j!= 0 && array[i][j-1] != "node"){
+                            array[i][j] = "bridge0"
+                            console.log("cleanup")
+                        }*/
+                        if(j==0 || j==n-1){
+                            array[i][j] = "bridge0"
+                            console.log("cleanup")
+                        }
+                    }
+                }
+            }
+        }
+
+
         //fill in numbers
-        for(var k = 0; k<=max; k++){
+        for(var k = 0; k<max; k++){
             var bcount = 0;
-            console.log(nodes[k])
             var i = parseFloat(nodes[k][0])
             var j = parseFloat(nodes[k][1])
             console.log(array[i][j])
@@ -238,7 +334,6 @@ class Puzzle extends Component {
                 }
             }
             if(i-1 >= 0){
-                console.log(array[i-1][j])
                 if(array[i-1][j] === "bridge1_v"){
                     bcount++;
                 }
@@ -248,6 +343,8 @@ class Puzzle extends Component {
             }
             if(bcount>0){
                 array[i][j] = "node" + bcount
+            }else{
+                window.location.reload();
             }
         }
         this.setState({puzzle: String(array)})
@@ -263,6 +360,28 @@ class Puzzle extends Component {
             }
         }
         this.setState({currSource: array})
+    }
+
+    noNeighbors(array, i, j, n){
+        i = parseFloat(i)
+        j = parseFloat(j)
+        if(i!= 0 && array[i-1][j] === "node"){
+            console.log("COLLISION")
+            return false
+        }
+        if(i!= n-1 && array[i+1][j] === "node"){
+            console.log("COLLISION")
+            return false
+        }
+        if(j!=n-1 && array[i][j+1] === "node"){
+            console.log("COLLISION")
+            return false
+        }
+        if(j!= 0 && array[i][j-1] === "node"){
+            console.log("COLLISION")
+            return false
+        }
+        return true
     }
     getRandomInt(min, max) {
         min = Math.ceil(min);
@@ -369,21 +488,31 @@ class Puzzle extends Component {
                 <Cell src={this.state.currSource[0][1]} onClick={this.handleClick.bind(this)} row_data="0" column_data="1" currHL={this.state.currHL}/>
                 <Cell src={this.state.currSource[0][2]} onClick={this.handleClick.bind(this)} row_data="0" column_data="2" currHL={this.state.currHL}/>
                 <Cell src={this.state.currSource[0][3]} onClick={this.handleClick.bind(this)} row_data="0" column_data="3" currHL={this.state.currHL}/>
+                <Cell src={this.state.currSource[0][4]} onClick={this.handleClick.bind(this)} row_data="0" column_data="4" currHL={this.state.currHL}/>
                 <br clear="all" />
                 <Cell src={this.state.currSource[1][0]} onClick={this.handleClick.bind(this)} row_data="1" column_data="0" currHL={this.state.currHL}/>
                 <Cell src={this.state.currSource[1][1]} onClick={this.handleClick.bind(this)} row_data="1" column_data="1" currHL={this.state.currHL}/>
                 <Cell src={this.state.currSource[1][2]} onClick={this.handleClick.bind(this)} row_data="1" column_data="2" currHL={this.state.currHL}/>
                 <Cell src={this.state.currSource[1][3]} onClick={this.handleClick.bind(this)} row_data="1" column_data="3" currHL={this.state.currHL}/>
+                <Cell src={this.state.currSource[1][4]} onClick={this.handleClick.bind(this)} row_data="1" column_data="4" currHL={this.state.currHL}/>
                 <br clear="all" />
                 <Cell src={this.state.currSource[2][0]} onClick={this.handleClick.bind(this)} row_data="2" column_data="0" currHL={this.state.currHL}/>
                 <Cell src={this.state.currSource[2][1]} onClick={this.handleClick.bind(this)} row_data="2" column_data="1" currHL={this.state.currHL}/>
                 <Cell src={this.state.currSource[2][2]} onClick={this.handleClick.bind(this)} row_data="2" column_data="2" currHL={this.state.currHL}/>
                 <Cell src={this.state.currSource[2][3]} onClick={this.handleClick.bind(this)} row_data="2" column_data="3" currHL={this.state.currHL}/>
+                <Cell src={this.state.currSource[2][4]} onClick={this.handleClick.bind(this)} row_data="2" column_data="4" currHL={this.state.currHL}/>
                 <br clear="all" />
                 <Cell src={this.state.currSource[3][0]} onClick={this.handleClick.bind(this)} row_data="3" column_data="0" currHL={this.state.currHL}/>
                 <Cell src={this.state.currSource[3][1]} onClick={this.handleClick.bind(this)} row_data="3" column_data="1" currHL={this.state.currHL}/>
                 <Cell src={this.state.currSource[3][2]} onClick={this.handleClick.bind(this)} row_data="3" column_data="2" currHL={this.state.currHL}/>
                 <Cell src={this.state.currSource[3][3]} onClick={this.handleClick.bind(this)} row_data="3" column_data="3" currHL={this.state.currHL}/>
+                <Cell src={this.state.currSource[3][4]} onClick={this.handleClick.bind(this)} row_data="3" column_data="4" currHL={this.state.currHL}/>
+                <br clear="all" />
+                <Cell src={this.state.currSource[4][0]} onClick={this.handleClick.bind(this)} row_data="4" column_data="0" currHL={this.state.currHL}/>
+                <Cell src={this.state.currSource[4][1]} onClick={this.handleClick.bind(this)} row_data="4" column_data="1" currHL={this.state.currHL}/>
+                <Cell src={this.state.currSource[4][2]} onClick={this.handleClick.bind(this)} row_data="4" column_data="2" currHL={this.state.currHL}/>
+                <Cell src={this.state.currSource[4][3]} onClick={this.handleClick.bind(this)} row_data="4" column_data="3" currHL={this.state.currHL}/>
+                <Cell src={this.state.currSource[4][4]} onClick={this.handleClick.bind(this)} row_data="4" column_data="4" currHL={this.state.currHL}/>
                 
             </div>
             <button onClick={this.doneButton.bind(this)}>Done!</button>
