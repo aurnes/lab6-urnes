@@ -475,7 +475,7 @@ class Puzzle extends Component {
 
     check(){
         if(String(this.state.currSource) === this.state.puzzle){
-            window.alert("YAY!")
+            window.alert("You win!")
             return true
         }
         window.alert("Not yet.")
@@ -535,7 +535,9 @@ class Puzzle extends Component {
                 <Cell src={this.state.currSource[5][5]} onClick={this.handleClick.bind(this)} row_data="5" column_data="5" currHL={this.state.currHL}/>
                 
             </div>
-            <button onClick={this.doneButton.bind(this)}>Done!</button>
+            <button onClick={this.doneButton.bind(this)} class="done">Done!</button>
+            <button onClick={this.props.reload}>New puzzle</button>
+          <button onClick={this.props.signOut}>Sign out</button>
         </div>
         )
     }

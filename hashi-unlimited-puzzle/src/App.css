@@ -2,6 +2,7 @@
   text-align: center;
   display: flex;
   justify-content: center;
+  font-family: Georgia;
 }
 
 .App-logo {
@@ -55,15 +56,44 @@ button {
 
 .timer {
   order: 2;
+  font-family: Georgia;
 }
 
 h1 {
   color: 
   #66ff3d;
   order: 1;
+  font-size: 5vh;
 }
 
 div.aspectwrapper {position: relative;}
 
 div.aspectwrapper div.puzzle { position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; }
 div.aspectwrapper embed {width: 100%; height: 100%; }
+
+button {
+  background: #66ff3d;
+  background-image: linear-gradient(to bottom, #66ff3d, #4aba2b);
+  color: #ffffff;
+  font-size: 20px;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  margin: 25px 0px;
+}
+
+button:hover {
+  background: #4aba2b;
+  background-image: linear-gradient(to bottom, #4aba2b, #66ff3d);
+  text-decoration: none;
+  border-radius: 15px;
+}
+
+button {
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+  }
+  
+  p{
+    font-size: 4vh;
+  }

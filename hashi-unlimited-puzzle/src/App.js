@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SignIn from './SignIn'
 import Main from './Main'
+import './App.css'
 import base, {auth} from './base';
 
 class App extends Component {
@@ -50,7 +51,7 @@ class App extends Component {
         }
         render(){
             return (
-                <div>
+                <div class="App">
                 {this.signedIn()
                 ? <Main signOut={this.signOut.bind(this)} uid={this.state.uid} bypass={this.state.bypass}/>
                 : <SignIn byPass={this.byPass.bind(this)} />

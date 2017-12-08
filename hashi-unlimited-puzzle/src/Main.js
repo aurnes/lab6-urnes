@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import banner from './icons/banner.png'
-
 import Puzzle from './Puzzle'
 
 class Main extends Component {
@@ -100,11 +99,10 @@ reload(){
           <p>{this.state.hi}</p>
 
 
-          <Puzzle finishPuzzle={this.finishPuzzle.bind(this)}/>
-          <button onClick={this.reload}>New puzzle</button>
-          <button onClick={this.props.signOut}>Sign out</button>
-          <div className="inst" style={{width: 350, position: "relative", left: "10px", border: "1px solid black", textAlign: "left"}}>
-            <img src={banner} style={{width: 350, height: 60}} />
+          <Puzzle reload={this.reload} signOut={this.props.signOut} finishPuzzle={this.finishPuzzle.bind(this)}/>
+          <div className="inst" style={{width: "58vh", position: "relative", left: "10px", border: "1px solid black", textAlign: "left"}}>
+            <img src={banner} style={{width: "58vh", height: "20"}} />
+            <br/>
             <b>How To Play</b><br/>
             1. Click a node to highlight it.<br/>
             2. Click another node to draw a straight line.<br/>
