@@ -52,7 +52,7 @@ class App extends Component {
             return (
                 <div>
                 {this.signedIn()
-                ? <Main signOut={this.signOut.bind(this)} uid={this.state.uid} />
+                ? <Main signOut={this.signOut.bind(this)} uid={this.state.uid} bypass={this.state.bypass}/>
                 : <SignIn byPass={this.byPass.bind(this)} />
                 }
                 </div>

@@ -15,14 +15,15 @@ class Main extends Component {
       start: Date.now(),
       finished: false,
       totalTime: "00:00:00",
-      hi: "Go!"
+      hi: "Go!",
+      bypass: false
     }
 
 
   }
 
   componentWillMount(){
-      this.setState( {uid: this.props.uid});
+      this.setState( {uid: this.props.uid, bypass: this.props.bypass});
       this.timer = setInterval(this.tick, 50);
   }
 
@@ -42,7 +43,8 @@ pad = (d) => {
 }
 finishPuzzle(){
   var time = this.getTotalTime();
-  fetch('/users', {
+  if(!this.state.bypass){
+    fetch('/users', {
     method: 'post',
     headers: {'Content-Type':'application/json'},
     body: JSON.stringify({
@@ -50,6 +52,7 @@ finishPuzzle(){
       "time": time
     })
   }).then((response) => response.json()).then((res) => this.setState({ hi: res.hi}));
+}
 
   this.setState({finished: true})
 }
