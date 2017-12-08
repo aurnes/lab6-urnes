@@ -23,28 +23,29 @@ class App extends Component {
         this.setState(
                     {uid: userData.uid}
                      )
-    
-    
+
+
     }
     signedIn = () => {
-        
+
             return this.state.uid;
     }
 
     signOut = () => {
-        
+
             auth
                 .signOut()
                 .then(() => {
                     this.setState({uid: null })
-                    window.location.reload()
+                    //window.location.reload()
                 })
+                window.location.reload()
         }
         render(){
             return (
                 <div>
                 {this.signedIn()
-                ? <Main signOut={this.signOut.bind(this)} /> 
+                ? <Main signOut={this.signOut.bind(this)} uid={this.state.uid} />
                 : <SignIn />
                 }
                 </div>

@@ -9,6 +9,7 @@ class Main extends Component {
     super()
 
     this.state = {
+      uid: null,
       elapsed: 0,
       start: Date.now(),
       finished: false,
@@ -20,6 +21,7 @@ class Main extends Component {
   }
 
   componentWillMount(){
+      this.setState( {uid: this.props.uid});
       this.timer = setInterval(this.tick, 50);
   }
 
