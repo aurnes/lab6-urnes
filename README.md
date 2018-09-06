@@ -17,4 +17,4 @@ Puzzle generator algorithm referenced from "Hashiwokakero" by T. Morsink (2009).
 
 **video: https://www.youtube.com/watch?v=K_7qPo0YEDM**
 
-**live site: http://hashi-unlimited-puzzle.surge.sh/ OR http://18.217.79.97:3005/**
+**live site: http://hashi-unlimited-puzzle.surge.sh/**
